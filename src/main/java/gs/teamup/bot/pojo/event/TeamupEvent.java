@@ -1,20 +1,21 @@
-package gs.teamup.bot.pojo;
+package gs.teamup.bot.pojo.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 /**
  * Created by thisno on 2016-04-12.
  */
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamupEventList {
+public class TeamupEvent {
+    @JsonProperty("type")
+    String type;
 
-    @JsonProperty("events")
-    List<TeamupEvent> events;
+    @JsonProperty("chat")
+    TeamupEventChat chat;
 }
