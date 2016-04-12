@@ -24,7 +24,10 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.security.oauth:spring-security-oauth2:2.0.8.RELEASE")
+    compile("org.apache.httpcomponents:httpclient:4.4.1")
 
+    compile("com.google.guava:guava:18.0")
     compile("org.projectlombok:lombok:1.16.4")
     testCompile("junit:junit")
 }
