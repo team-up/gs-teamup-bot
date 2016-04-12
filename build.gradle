@@ -9,10 +9,16 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
+apply plugin: 'war'
 
-jar {
-    baseName = 'gs-teamup-bot'
-    version =  '1.0.0'
+war {
+    baseName = project.name
+    version =  '1.0.0-' + new Date().format('yyyyMMdd-HHmmss')
+
+    ant.propertyfile(
+            file: "src/main/resources/version.properties") {
+        entry( key: "project.version", value: baseName + "-" + version)
+    }
 }
 
 repositories {

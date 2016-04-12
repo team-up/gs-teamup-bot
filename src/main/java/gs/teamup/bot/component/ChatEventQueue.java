@@ -1,7 +1,6 @@
 package gs.teamup.bot.component;
 
-import gs.teamup.bot.pojo.TeamupEvent;
-import gs.teamup.bot.pojo.TeamupEventChat;
+import gs.teamup.bot.pojo.event.TeamupEventChat;
 import org.springframework.stereotype.Component;
 
 import java.util.Queue;
