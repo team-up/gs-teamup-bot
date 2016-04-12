@@ -1,8 +1,7 @@
 package gs.teamup.bot.template.teamup;
 
 
-import gs.teamup.bot.pojo.TeamupEvent;
-import gs.teamup.bot.pojo.TeamupEventList;
+import gs.teamup.bot.pojo.event.TeamupEventList;
 import gs.teamup.bot.template.oauth2.Oauth2Template;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 @CommonsLog
 @Component
-public class EventTemplate {
+public class EventTemplate{
 
 	@Autowired
 	Oauth2Template oauth2Template;

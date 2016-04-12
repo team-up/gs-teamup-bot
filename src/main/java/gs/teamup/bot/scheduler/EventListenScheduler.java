@@ -1,8 +1,8 @@
 package gs.teamup.bot.scheduler;
 
 import gs.teamup.bot.component.ChatEventQueue;
-import gs.teamup.bot.pojo.TeamupEvent;
-import gs.teamup.bot.pojo.TeamupEventList;
+import gs.teamup.bot.pojo.event.TeamupEvent;
+import gs.teamup.bot.pojo.event.TeamupEventList;
 import gs.teamup.bot.template.teamup.EventTemplate;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
