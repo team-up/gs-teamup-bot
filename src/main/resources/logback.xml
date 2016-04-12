@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-	configuration: http://logback.qos.ch/manual/configuration.html
-	appender: http://logback.qos.ch/manual/appenders.html
--->
 <configuration>
-	<property file="src/main/resources/application.properties" />
 	
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
@@ -16,7 +11,7 @@
 		<prudent>true</prudent>
 		<append>true</append>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/data/log/logback/teamup-bot-kim/%d{yyyyMMdd}.%i.log</fileNamePattern>
+			<fileNamePattern>/data/log/logback/gs-teamup-bot/%d{yyyyMMdd}.%i.log</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>10MB</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
@@ -26,7 +21,7 @@
 		</encoder>
 	</appender> 
 
-	<logger name="com.teamup.bot" level="DEBUG"/>
+	<logger name="gs.teamup.bot" level="DEBUG"/>
 	<logger name="org.springframework" level="ERROR"/>
 
 	<root level="ERROR">
