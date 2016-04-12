@@ -1,5 +1,7 @@
 package gs.teamup.bot.template.oauth2;
 
+import com.google.common.base.Strings;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -7,10 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-
-import com.google.common.base.Strings;
-
-import lombok.Getter;
 
 @Getter
 @Component
