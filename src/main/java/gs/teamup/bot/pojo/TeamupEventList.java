@@ -5,17 +5,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Created by thisno on 2016-04-12.
  */
-
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamupEvent {
-    @JsonProperty("type")
-    String type;
+public class TeamupEventList {
 
-    @JsonProperty("chat")
-    TeamupEventChat chat;
+    @JsonProperty("events")
+    List<TeamupEvent> events;
 }

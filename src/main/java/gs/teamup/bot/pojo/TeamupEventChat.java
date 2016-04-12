@@ -8,14 +8,23 @@ import lombok.Setter;
 /**
  * Created by thisno on 2016-04-12.
  */
-
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamupEvent {
-    @JsonProperty("type")
-    String type;
+public class TeamupEventChat {
 
-    @JsonProperty("chat")
-    TeamupEventChat chat;
+    @JsonProperty("team")
+    Integer team;
+
+    @JsonProperty("room")
+    Integer room;
+
+    @JsonProperty("type")
+    Integer type;
+
+    @JsonProperty("msg")
+    Integer msg;
+
+    @JsonProperty("user")
+    Integer user;
 }
