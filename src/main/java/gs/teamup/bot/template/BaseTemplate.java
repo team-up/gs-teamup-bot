@@ -10,7 +10,7 @@ import org.springframework.http.*;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 
 @CommonsLog
 @Component
@@ -21,7 +21,7 @@ public class BaseTemplate {
 
 	@Autowired
 	@Qualifier("restTemplate")
-	RestOperations rest;
+	RestTemplate restTemplate;
 
 	protected <T> T get(String url, ParameterizedTypeReference<T> p) {
 		return send(url, null, p, HttpMethod.GET);
@@ -40,7 +40,7 @@ public class BaseTemplate {
 		ResponseEntity<T> responseEntity = null;
 
 		try {
-			responseEntity = rest.exchange(url, httpMethod, entity, p);
+			responseEntity = restTemplate.exchange(url, httpMethod, entity, p);
 		} catch (RestClientException e) {
 			log.error(url, e);
 		}

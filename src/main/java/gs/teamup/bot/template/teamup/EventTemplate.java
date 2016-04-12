@@ -1,40 +1,36 @@
 package gs.teamup.bot.template.teamup;
 
+
+import gs.teamup.bot.pojo.TeamupEvent;
+import gs.teamup.bot.pojo.TeamupEventList;
+import gs.teamup.bot.template.oauth2.Oauth2Template;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestOperations;
-
-import com.teamup.bot.pojo.api.event.Events;
-import com.teamup.bot.template.oauth2.Oauth2Template;
-
-import lombok.extern.apachecommons.CommonsLog;
+import org.springframework.web.client.RestTemplate;
 
 @CommonsLog
 @Component
 public class EventTemplate {
 
 	@Autowired
-	Oauth2Template oauth2;
+	Oauth2Template oauth2Template;
 
 	@Value("${teamup.event}")
 	String evUrl;
 
 	@Autowired
 	@Qualifier("eventRestTemplate")
-	RestOperations event;
+	RestTemplate eventRestTemplate;
 
-	public Events getEvent() {
+	public TeamupEventList getEvent() {
 
-		OAuth2AccessToken token = oauth2.token();
+		OAuth2AccessToken token = oauth2Template.token();
 
 		if( token == null ){
 			log.debug("token is null ");
@@ -42,9 +38,9 @@ public class EventTemplate {
 		}
 
 		HttpEntity<Object> entity = getEntity(token.getValue());
-		ResponseEntity<Events> responseEntity = null;
+		ResponseEntity<TeamupEventList> responseEntity = null;
 		try {
-			responseEntity = event.exchange(evUrl, HttpMethod.GET, entity, Events.class);
+			responseEntity = eventRestTemplate.exchange(evUrl, HttpMethod.GET, entity, TeamupEventList.class);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 			return null;
