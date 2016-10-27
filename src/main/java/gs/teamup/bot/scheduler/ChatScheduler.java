@@ -1,16 +1,19 @@
 package gs.teamup.bot.scheduler;
 
 import com.google.common.base.Strings;
-import gs.teamup.bot.component.ChatEventQueue;
+import gs.teamup.bot.component.EventQueue;
 import gs.teamup.bot.controller.ChatController;
 import gs.teamup.bot.pojo.edge.ChatMessage;
 import gs.teamup.bot.pojo.event.TeamupEventChat;
-import gs.teamup.bot.service.ChatService;
+import gs.teamup.bot.pojo.event.TeamupEventFeed;
 import gs.teamup.bot.template.teamup.EdgeTemplate;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Created by thisno on 2016-04-12.
@@ -21,7 +24,8 @@ import org.springframework.stereotype.Component;
 public class ChatScheduler {
 
     @Autowired
-    private ChatEventQueue chatEventQueue;
+    @Qualifier("chatEventQueue")
+    private EventQueue<TeamupEventChat> chatEventQueue;
 
     @Autowired
     private EdgeTemplate edgeTemplate;
@@ -38,7 +42,7 @@ public class ChatScheduler {
 
         log.debug("chat pop");
 
-        ChatMessage chatMsg = edgeTemplate.getMessgae(teamupEventChat.getRoom(), teamupEventChat.getMsg());
+        ChatMessage chatMsg = edgeTemplate.getMessage(teamupEventChat.getRoom(), teamupEventChat.getMsg());
         if (chatMsg == null) {
             return;
         }
