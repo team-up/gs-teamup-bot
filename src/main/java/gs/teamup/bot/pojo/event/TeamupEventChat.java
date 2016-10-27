@@ -19,9 +19,6 @@ public class TeamupEventChat {
     @JsonProperty("room")
     Integer room;
 
-    @JsonProperty("type")
-    Integer type;
-
     @JsonProperty("msg")
     Integer msg;
 

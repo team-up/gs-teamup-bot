@@ -5,21 +5,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
+/**
+ * Created by thisno on 2016-10-27.
+ */
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ChatFile {
+public class ChatMessageList {
 
-	@JsonProperty("id")
-	Integer id;
-
-	@JsonProperty("type")
-	String type; // normal,image,video
-
-	@JsonProperty("name")
-	String name;
-
-	@JsonProperty("size")
-	Integer size;
+    @JsonProperty("msgs")
+    List<ChatMessage> chatMessageList;
 
 }

@@ -11,17 +11,17 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 
 @Component
-public class ChatEventQueue {
-    final Queue<TeamupEventChat> queue = new ConcurrentLinkedQueue<TeamupEventChat>();
+public class EventQueue<T> {
+    final Queue<T> queue = new ConcurrentLinkedQueue<T>();
 
-    public void offer(TeamupEventChat e) {
+    public void offer(T e) {
         if (e == null) {
             return;
         }
         queue.offer(e);
     }
 
-    public TeamupEventChat poll() {
+    public T poll() {
         return queue.poll();
     }
 }

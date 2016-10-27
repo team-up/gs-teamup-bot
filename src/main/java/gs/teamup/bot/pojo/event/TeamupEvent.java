@@ -13,9 +13,13 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamupEvent {
+
     @JsonProperty("type")
     String type;
 
     @JsonProperty("chat")
     TeamupEventChat chat;
+
+    @JsonProperty("feed")
+    TeamupEventFeed feed;
 }
