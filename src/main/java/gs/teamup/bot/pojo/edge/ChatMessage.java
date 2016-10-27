@@ -10,8 +10,8 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ChatMessage {
 
-	@JsonProperty("team")
-	Integer team;
+	@JsonProperty("msg")
+	Integer msg;
 
 	@JsonProperty("user")
 	Integer user;
@@ -25,11 +25,8 @@ public class ChatMessage {
 	@JsonProperty("content")
 	String content;
 
-	@JsonProperty("created")
-	Long created;
-
-	@JsonProperty("fileinfo")
-	ChatFile fileinfo;
+	@JsonProperty("file")
+	ChatFile file;
 
 
 }
