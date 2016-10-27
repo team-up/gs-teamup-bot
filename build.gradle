@@ -13,7 +13,7 @@ apply plugin: 'war'
 
 war {
     baseName = project.name
-    version =  '1.0.0-' + new Date().format('yyyyMMdd-HHmmss')
+    version =  '1.0.1-' + new Date().format('yyyyMMdd-HHmmss')
 
     ant.propertyfile(
             file: "src/main/resources/version.properties") {
