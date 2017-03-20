@@ -6,21 +6,18 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Created by thisno on 2016-04-12.
+ * Created by vicious on 2017-03-15.
  */
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TeamupEventChat {
-    @JsonProperty("team")
-    Integer team;
+public class TeamupEventConfig {
+    @JsonProperty("version")
+    String version;
 
-    @JsonProperty("room")
-    Long room;
+    @JsonProperty("lp_idle_time")
+    Integer idleTime;
 
-    @JsonProperty("msg")
-    Long msg;
-
-    @JsonProperty("user")
-    Integer user;
+    @JsonProperty("lp_wait_timeout")
+    Integer waitTimeout;
 }

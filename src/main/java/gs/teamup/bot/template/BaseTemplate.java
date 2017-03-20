@@ -15,59 +15,54 @@ import org.springframework.web.client.RestTemplate;
 @CommonsLog
 @Component
 public class BaseTemplate {
+    @Autowired
+    protected Oauth2Template oauth2Template;
 
-	@Autowired
-	Oauth2Template oauth2Template;
+    @Autowired
+    @Qualifier("restTemplate")
+    private RestTemplate restTemplate;
 
-	@Autowired
-	@Qualifier("restTemplate")
-	RestTemplate restTemplate;
+    protected <T> T get(String url, ParameterizedTypeReference<T> p) {
+        return send(url, null, p, HttpMethod.GET);
+    }
 
-	protected <T> T get(String url, ParameterizedTypeReference<T> p) {
-		return send(url, null, p, HttpMethod.GET);
-	}
+    protected <T> T post(String url, Object request, ParameterizedTypeReference<T> p) {
+        return send(url, request, p, HttpMethod.POST);
+    }
 
-	protected <T> T post(String url, Object request, ParameterizedTypeReference<T> p) {
-		return send(url, request, p, HttpMethod.POST);
-	}
+    private <T> T send(String url, Object request, ParameterizedTypeReference<T> p, HttpMethod httpMethod) {
+        HttpEntity<Object> entity = getEntity(request);
+        if (entity == null) {
+            return null;
+        }
+        ResponseEntity<T> responseEntity = null;
 
-	private <T> T send(String url, Object request, ParameterizedTypeReference<T> p, HttpMethod httpMethod) {
+        try {
+            responseEntity = restTemplate.exchange(url, httpMethod, entity, p);
+        } catch (RestClientException e) {
+            log.error(url, e);
+        }
 
-		HttpEntity<Object> entity = getEntity(request);
-		if( entity == null){
-			return null;
-		}
-		ResponseEntity<T> responseEntity = null;
+        if (responseEntity != null && responseEntity.getStatusCode().equals(HttpStatus.OK)) {
+            return responseEntity.getBody();
+        } else {
+            if (responseEntity != null) {
+                log.error(responseEntity.getStatusCode());
+            }
+        }
 
-		try {
-			responseEntity = restTemplate.exchange(url, httpMethod, entity, p);
-		} catch (RestClientException e) {
-			log.error(url, e);
-		}
+        return null;
+    }
 
-		if (responseEntity != null && responseEntity.getStatusCode().equals(HttpStatus.OK)) {
-			return responseEntity.getBody();
-		} else {
-			if(responseEntity != null){
-				log.error(responseEntity.getStatusCode());
-			}
-		}
-		return null;
+    protected HttpEntity<Object> getEntity(Object request) {
+        OAuth2AccessToken token = oauth2Template.token();
+        if (token == null) {
+            return null;
+        }
 
-	}
-
-	private HttpEntity<Object> getEntity(Object request) {
-
-		OAuth2AccessToken token = oauth2Template.token();
-
-		if (token == null) {
-			return null;
-		}
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.add("Authorization", "bearer " + token.getValue());
-		return new HttpEntity<Object>(request, headers);
-	}
-
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Authorization", token.getTokenType() + " " + token.getValue());
+        return new HttpEntity<Object>(request, headers);
+    }
 }

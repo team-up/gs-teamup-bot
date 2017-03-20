@@ -9,16 +9,13 @@ import org.springframework.stereotype.Component;
 /**
  * Created by thisno on 2016-04-12.
  */
-
 @CommonsLog
 @Component
 public class ChatController {
-
     @Autowired
     ChatService chatService;
 
-    public void chat(ChatMessage chatMessage, int room){
-
+    public void chat(ChatMessage chatMessage, Long room) {
         log.debug("chat : " + chatMessage.getContent());
 
         switch (chatMessage.getType()) {
@@ -30,8 +27,5 @@ public class ChatController {
             default:
                 break;
         }
-
     }
-
-
 }

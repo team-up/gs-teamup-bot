@@ -9,17 +9,15 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ChatFile {
+    @JsonProperty("id")
+    String id;
 
-	@JsonProperty("id")
-	Integer id;
+    @JsonProperty("type")
+    String type; // normal,image,video
 
-	@JsonProperty("type")
-	String type; // normal,image,video
+    @JsonProperty("name")
+    String name;
 
-	@JsonProperty("name")
-	String name;
-
-	@JsonProperty("size")
-	Integer size;
-
+    @JsonProperty("size")
+    Long size;
 }

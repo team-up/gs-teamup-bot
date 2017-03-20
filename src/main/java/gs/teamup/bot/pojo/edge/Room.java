@@ -10,11 +10,11 @@ import java.util.List;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Room {
-	Integer team;
-	Integer roomtype; // 1개인 2 단체
-	Integer state;
-	String name;
-	List<Integer> users;
-	Integer user;
-	Integer msgtype; // 1 일반 2 파일
+    Integer team;
+    Integer roomtype; // 1 개인 2 단체
+    Integer state;
+    String name;
+    List<Integer> users;
+    Integer user;
+    Integer msgtype; // 1 일반 2 파일
 }
