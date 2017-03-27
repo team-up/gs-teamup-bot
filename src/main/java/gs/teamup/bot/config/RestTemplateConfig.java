@@ -8,7 +8,6 @@ import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
@@ -20,24 +19,23 @@ import java.util.List;
  */
 @Configuration
 public class RestTemplateConfig {
-
-    @Bean(name="eventRestTemplate")
+    @Bean(name = "eventRestTemplate")
     public RestTemplate eventRestTemplate() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setConnectTimeout(1000*2);
-        factory.setReadTimeout(1000*30);
+        factory.setConnectTimeout(1000 * 3);
+        factory.setReadTimeout(1000 * 35);
         return getRestTemplate(factory);
     }
 
-    @Bean(name="restTemplate")
+    @Bean(name = "restTemplate")
     public RestTemplate restTemplate() {
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setConnectTimeout(1000*2);
-        factory.setReadTimeout(1000*5);
+        factory.setConnectTimeout(1000 * 3);
+        factory.setReadTimeout(1000 * 10);
         return getRestTemplate(factory);
     }
 
-    private RestTemplate getRestTemplate(HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory){
+    private RestTemplate getRestTemplate(HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory) {
         RestTemplate restTemplate = new RestTemplate(httpComponentsClientHttpRequestFactory);
         Charset charset = Charset.forName("UTF-8");
 

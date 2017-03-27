@@ -9,6 +9,7 @@ import gs.teamup.bot.template.teamup.EventTemplate;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +18,9 @@ import java.util.List;
 /**
  * Created by thisno on 2016-04-12.
  */
-
 @CommonsLog
 @Component
 public class EventListenScheduler {
-
     @Autowired
     @Qualifier("chatEventQueue")
     private EventQueue<TeamupEventChat> chatEventQueue;
@@ -33,7 +32,10 @@ public class EventListenScheduler {
     @Autowired
     private EventTemplate eventTemplate;
 
-    @Scheduled(fixedDelay = 10)
+    @Value("${teamup.bot.feed}")
+    private boolean botFeed;
+
+    @Scheduled(fixedDelay = 100)
     public void getEvent() {
         log.debug("waiting get event...");
         TeamupEventList teamupEventList = eventTemplate.getEvent();
@@ -61,9 +63,11 @@ public class EventListenScheduler {
             // TODO feed
             case "feed.feed":
             case "feed.reply":
-                TeamupEventFeed teamupEventFeed = ev.getFeed();
-                teamupEventFeed.setType(t);
-                feedEventQueue.offer(teamupEventFeed);
+                if (botFeed) {
+                    TeamupEventFeed teamupEventFeed = ev.getFeed();
+                    teamupEventFeed.setType(t);
+                    feedEventQueue.offer(teamupEventFeed);
+                }
                 break;
 
             default:

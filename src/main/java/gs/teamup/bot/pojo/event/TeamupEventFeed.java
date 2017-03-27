@@ -8,24 +8,21 @@ import lombok.Setter;
 /**
  * Created by thisno on 2016-10-27.
  */
-
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TeamupEventFeed {
-
     String type;
 
     @JsonProperty("team")
     Integer team;
 
     @JsonProperty("feedgroup")
-    Integer feedgroup;
+    Long feedgroup;
 
     @JsonProperty("feed")
-    Integer feed;
+    Long feed;
 
     @JsonProperty("reply")
-    Integer reply;
-
+    Long reply;
 }

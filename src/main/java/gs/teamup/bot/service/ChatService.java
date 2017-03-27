@@ -17,14 +17,13 @@ import java.util.stream.Collectors;
 @CommonsLog
 @Component
 public class ChatService {
-
     @Autowired
     private EdgeTemplate edgeTemplate;
 
     @Value("${project.version}")
     private String version;
 
-    public void doChat(ChatMessage chatMessage, int room) {
+    public void doChat(ChatMessage chatMessage, Long room) {
         String content = chatMessage.getContent().trim();
         if (content.equals("?")) {
             edgeTemplate.say(room, version);
@@ -33,6 +32,5 @@ public class ChatService {
                     .collect(Collectors.toList());
             edgeTemplate.say(room, number.toString());
         }
-
     }
 }

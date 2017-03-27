@@ -1,21 +1,19 @@
 package gs.teamup.bot.template.oauth2;
 
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by thisno on 2016-04-12.
  */
-
 @Component
 public class Oauth2Template {
-
     @Autowired
     @Qualifier("restTemplate")
     private RestTemplate restTemplate;
@@ -31,18 +29,22 @@ public class Oauth2Template {
                     OAuth2AccessToken.class);
 
             if (response.getStatusCode().equals(HttpStatus.OK)) {
-                accessToken = response.getBody();
+                OAuth2AccessToken token = response.getBody();
+
+                if (Strings.isNullOrEmpty(token.getValue())) {
+                    return null;
+                }
+
+                accessToken = token;
             }
-        } else {
-            if (accessToken.isExpired()) {
-                refresh(accessToken.getRefreshToken().getValue());
-            }
+        } else if (accessToken.isExpired()) {
+            refresh(accessToken.getRefreshToken().getValue());
         }
+
         return accessToken;
     }
 
     public void refresh(String refreshToken) {
-
         accessToken = null;
         provider.refresh(refreshToken);
         accessToken = token();
