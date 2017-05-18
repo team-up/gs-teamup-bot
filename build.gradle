@@ -13,7 +13,7 @@ apply plugin: 'war'
 
 war {
     baseName = project.name
-    version =  '1.1.0-' + new Date().format('yyyyMMdd-HHmmss')
+    version =  '1.1.1-' + new Date().format('yyyyMMdd-HHmmss')
 
     ant.propertyfile(
             file: "src/main/resources/version.properties") {
@@ -34,10 +34,10 @@ dependencies {
     compile("org.apache.httpcomponents:httpclient:4.5.3")
 
     compile("com.google.guava:guava:21.0")
-    compile("org.projectlombok:lombok:1.16.14")
+    compile("org.projectlombok:lombok:1.16.16")
     testCompile("junit:junit")
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.3'
+    gradleVersion = '3.5'
 }
