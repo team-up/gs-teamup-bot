@@ -1,5 +1,6 @@
 .gradle
-build/
+/build
+/out
 /src/main/resources/version.properties
 
 # Ignore Gradle GUI config
