@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE")
     }
 }
 
@@ -11,13 +11,15 @@ apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 
+version = '1.2.0'
+
 war {
     baseName = project.name
-    version =  '1.1.0-' + new Date().format('yyyyMMdd-HHmmss')
+    version = project.version + '-' + new Date().format('yyyyMMdd-HHmmss')
 
     ant.propertyfile(
             file: "src/main/resources/version.properties") {
-        entry( key: "project.version", value: baseName + "-" + version)
+        entry(key: "project.version", value: baseName + "-" + version)
     }
 }
 
@@ -25,19 +27,21 @@ repositories {
     mavenCentral()
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.security.oauth:spring-security-oauth2:2.0.13.RELEASE")
-    compile("org.apache.httpcomponents:httpclient:4.5.3")
+    compile("org.springframework.security.oauth:spring-security-oauth2:2.2.0.RELEASE")
 
-    compile("com.google.guava:guava:21.0")
-    compile("org.projectlombok:lombok:1.16.14")
-    testCompile("junit:junit")
+    compile("org.apache.httpcomponents:httpclient:4.5.3")
+    compile("com.google.guava:guava:23.0")
+
+    compileOnly("org.projectlombok:lombok:1.16.18")
+
+    testCompile("junit:junit:4.12")
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.3'
+    gradleVersion = '4.1'
 }
