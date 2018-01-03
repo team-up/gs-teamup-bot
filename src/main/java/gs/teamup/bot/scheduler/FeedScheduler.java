@@ -1,13 +1,16 @@
 package gs.teamup.bot.scheduler;
 
 import gs.teamup.bot.component.EventQueue;
+import gs.teamup.bot.pojo.edge.ChatMessage;
+import gs.teamup.bot.pojo.edge.bot.Reply;
 import gs.teamup.bot.pojo.event.TeamupEventFeed;
-import gs.teamup.bot.template.teamup.EdgeTemplate;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestOperations;
 
 /**
  * Created by thisno on 2016-04-12.
@@ -15,12 +18,15 @@ import org.springframework.stereotype.Component;
 @CommonsLog
 @Component
 public class FeedScheduler {
+    @Value("${teamup.edge}")
+    private String edgeUrl;
+
     @Autowired
     @Qualifier("feedEventQueue")
     private EventQueue<TeamupEventFeed> feedEventQueue;
 
     @Autowired
-    private EdgeTemplate edgeTemplate;
+    private RestOperations restOperations;
 
     @Scheduled(fixedDelay = 100)
     public void feed() {
@@ -32,7 +38,8 @@ public class FeedScheduler {
         log.debug("feed pop");
 
         if ("feed.reply".equals(teamupEventFeed.getType())) {
-            edgeTemplate.reply(teamupEventFeed.getFeed(), "테스트 답글입니다.");
+            String url = edgeUrl + "/v3/feed/reply/" + teamupEventFeed.getFeed();
+            restOperations.postForObject(url, Reply.create("테스트 답글입니다."), ChatMessage.class);
         }
     }
 }
