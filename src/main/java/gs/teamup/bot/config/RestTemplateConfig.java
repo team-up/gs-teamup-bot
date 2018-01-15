@@ -81,6 +81,7 @@ public class RestTemplateConfig {
     private void contextAuthentication() {
         // fake authentication for refresh token
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(null, null, AuthorityUtils.NO_AUTHORITIES);
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 }
