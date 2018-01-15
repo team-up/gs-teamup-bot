@@ -37,7 +37,7 @@ dependencies {
 
     compile("org.apache.httpcomponents:httpclient:4.5.4")
 
-    compileOnly("org.projectlombok:lombok:1.16.18")
+    compileOnly("org.projectlombok:lombok:1.16.20")
 
     testCompile("junit:junit:4.12")
 }
