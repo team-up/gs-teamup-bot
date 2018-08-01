@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.Nullable;
+
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -13,6 +15,7 @@ public class ChatMessage {
     Long msg;
 
     @JsonProperty("user")
+
     Integer user;
 
     @JsonProperty("type")
@@ -26,4 +29,16 @@ public class ChatMessage {
 
     @JsonProperty("file")
     ChatFile file;
+
+    @JsonProperty("extras")
+    Extras extras;
+
+    @Nullable
+    public String getResponseId() {
+        if(extras != null && extras.getExtraV2() != null) {
+            return extras.getExtraV2().getResponseId();
+        }
+
+        return null;
+    }
 }
