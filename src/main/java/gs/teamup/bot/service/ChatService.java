@@ -1,6 +1,7 @@
 package gs.teamup.bot.service;
 
 import gs.teamup.bot.pojo.edge.*;
+import gs.teamup.bot.pojo.event.TeamupEventChat;
 import gs.teamup.bot.template.teamup.EdgeTemplate;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,14 @@ public class ChatService {
     @Value("${project.version}")
     private String version;
 
+    public void doWelcome(TeamupEventChat eventChat) { // 대화방 입장 시 실행
+        List<Button> buttons = new ArrayList<>();
+        buttons.add(Button.textButton("lotto", "로또 d번호 뽑기", "로또 번호 뽑아줘"));
+        ExtraV2 extraV2 = new ExtraV2(null, null, buttons);
+
+        edgeTemplate.say(eventChat.getRoom(), "안녕하세요.\n" + version, extraV2);
+    }
+
     public void doChat(ChatMessage chatMessage, Long room) {
         String content = chatMessage.getContent().trim();
         String responseId = chatMessage.getResponseId();
@@ -34,7 +43,7 @@ public class ChatService {
             List<Integer> number = new Random().ints(1, 45).distinct().limit(6).boxed().sorted()
                     .collect(Collectors.toList());
 
-            List<Button> buttons = new ArrayList<Button>();
+            List<Button> buttons = new ArrayList<>();
             buttons.add(Button.textButton("lotto", "로또 번호 뽑기", "로또 번호 뽑아줘"));
             ExtraV2 extraV2 = new ExtraV2(buttons, null, buttons);
 

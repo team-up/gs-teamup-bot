@@ -1,6 +1,7 @@
 package gs.teamup.bot.controller;
 
 import gs.teamup.bot.pojo.edge.ChatMessage;
+import gs.teamup.bot.pojo.event.TeamupEventChat;
 import gs.teamup.bot.service.ChatService;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,9 @@ public class ChatController {
             default:
                 break;
         }
+    }
+
+    public void init(TeamupEventChat teamupEventChat) {
+        chatService.doWelcome(teamupEventChat);
     }
 }
