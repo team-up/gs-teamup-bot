@@ -27,7 +27,7 @@ public class ChatService {
 
     public void doWelcome(TeamupEventChat eventChat) { // 대화방 입장 시 실행
         List<Button> buttons = new ArrayList<>();
-        buttons.add(Button.textButton("lotto", "로또 d번호 뽑기", "로또 번호 뽑아줘"));
+        buttons.add(Button.textButton("lotto", "로또 번호 뽑기", "로또 번호 뽑아줘"));
         ExtraV2 extraV2 = new ExtraV2(null, null, buttons);
 
         edgeTemplate.say(eventChat.getRoom(), "안녕하세요.\n" + version, extraV2);
