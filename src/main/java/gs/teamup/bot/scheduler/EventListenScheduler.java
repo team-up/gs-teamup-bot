@@ -56,8 +56,11 @@ public class EventListenScheduler {
     private void doEvent(TeamupEvent ev) {
         String t = ev.getType();
         switch (t) {
+            case "chat.initbot":
             case "chat.message":
-                chatEventQueue.offer(ev.getChat());
+                TeamupEventChat chat = ev.getChat();
+                chat.setType(t);
+                chatEventQueue.offer(chat);
                 break;
 
             // TODO feed

@@ -34,6 +34,11 @@ public class ChatScheduler {
             return;
         }
 
+        if (teamupEventChat.getType().equals("chat.initbot")) {
+            chatController.init(teamupEventChat);
+            return;
+        }
+
         log.debug("chat pop");
 
         ChatMessage chatMsg = edgeTemplate.getMessage(teamupEventChat.getRoom(), teamupEventChat.getMsg());
